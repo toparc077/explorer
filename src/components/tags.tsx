@@ -11,6 +11,7 @@ const colorMap = {
   [TransactionType.COINBASE]: '#6014B8',
   [TransactionType.POISON_MICROBLOCK]: '#AAA9DD',
 };
+
 const labelMap = {
   [TransactionType.SMART_CONTRACT]: 'Contract creation',
   [TransactionType.CONTRACT_CALL]: 'Contract call',
