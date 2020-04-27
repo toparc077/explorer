@@ -7,7 +7,7 @@ export const HomeNavigation: React.FC = () => (
   <Flex as="nav" justifyContent="space-between" alignItems="center" height="64px">
     <Box>
       <Link href="/" passHref>
-        <a aria-label="Homepage" title="Stacks Explorer Homepage">
+        <a aria-label="Homepage">
           <BlockstackLogo />
         </a>
       </Link>
