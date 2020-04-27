@@ -7,7 +7,6 @@ import { Provider } from 'react-redux';
 import { createGlobalStyle } from 'styled-components';
 import { RootState, initStore } from '@store';
 import '@components/highlighter/language-definition';
-import { handleFontLoading } from '@common/fonts';
 
 const GlobalStyles = createGlobalStyle`
   html, body, #__next {
@@ -25,10 +24,6 @@ class MyApp extends App<ReduxWrapperAppProps<RootState>> {
     return { pageProps };
   }
 
-  async componentDidMount() {
-    await handleFontLoading();
-  }
-
   render() {
     const { Component, pageProps, store } = this.props;
     return (
@@ -36,6 +31,10 @@ class MyApp extends App<ReduxWrapperAppProps<RootState>> {
         <ThemeProvider theme={theme}>
           <>
             <Head>
+              <link
+                href="https://fonts.googleapis.com/css2?family=Fira+Code&family=Inter:wght@400;500;600;700&display=swap"
+                rel="stylesheet"
+              />
               <title>Stacks 2.0 explorer</title>
               <meta property="og:type" content="website" />
               <meta property="og:site_name" content="Stacks 2.0 blockchain explorer" />
