@@ -20,11 +20,6 @@ const ssrCache = cacheableResponse({
       return;
     }
 
-    if (pagePath.includes('txid')) {
-      res.end(data);
-      return;
-    }
-
     return { data };
   },
   send: ({ data, res }) => res.send(data),
