@@ -1,6 +1,7 @@
 import { createEntityAdapter, createReducer, SerializedError } from '@reduxjs/toolkit';
 import { Transaction } from '@models/transaction.interface';
 import { fetchTransaction } from './actions';
+import { HYDRATE } from 'next-redux-wrapper';
 
 export const txAdapter = createEntityAdapter({
   selectId: (transaction: Transaction) => transaction.tx_id,
@@ -36,6 +37,21 @@ export const transactions = createReducer(initialState, builder => {
     if (state.loading === 'pending') {
       state.loading = 'idle';
       state.error = action.error;
+    }
+  });
+  builder.addCase(HYDRATE, (state, action) => {
+    // @ts-ignore
+    if (action && action.payload && action.payload.transactions) {
+      // @ts-ignore
+      // @ts-ignore
+      state.loading = 'HYDRATE';
+      state.error = undefined;
+      state.lastTxId = undefined;
+      // @ts-ignore
+      const newState = action.payload.transactions;
+      console.log('HYDRATE', state, newState);
+      // @ts-ignore
+      state = newState;
     }
   });
 });

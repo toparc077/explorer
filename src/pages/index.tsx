@@ -8,6 +8,7 @@ import { RecentlyViewed } from '@components/recently-viewed';
 import { useRecentlyViewedTx } from '@common/hooks/use-recently-viewed-tx';
 import { search } from '@common/search';
 import { Meta } from '@components/meta-head';
+import { connect } from 'react-redux';
 
 export const Home = () => {
   const [query, setQuery] = useState('');
@@ -42,5 +43,9 @@ export const Home = () => {
     </Page>
   );
 };
-
+// @ts-ignore
+Home.getInitialProps = async ctx => {
+  console.log('home', 'store', ctx);
+  return { test: true };
+};
 export default Home;

@@ -1218,10 +1218,10 @@
   dependencies:
     webpack-bundle-analyzer "3.6.1"
 
-"@next/react-refresh-utils@9.3.6":
-  version "9.3.6"
-  resolved "https://registry.yarnpkg.com/@next/react-refresh-utils/-/react-refresh-utils-9.3.6.tgz#a5eb91b4b8270fecb5fcf2d1319d8d04f0cf6f75"
-  integrity sha512-XgxPc3WAkNpzD9xYtN4bd3wpV39WhnHYSwXGovVVcImXY6yn1as6hDgwkbuLADY/SHLIu2AI6CTVq0JDoTC/+g==
+"@next/react-refresh-utils@9.3.7-canary.0":
+  version "9.3.7-canary.0"
+  resolved "https://registry.yarnpkg.com/@next/react-refresh-utils/-/react-refresh-utils-9.3.7-canary.0.tgz#042f83e3cf80830654b97d7079a21988f0d8f431"
+  integrity sha512-lIssTAqWA8RtQhRxtuxrNPoQM+Z6LQDXG46ass3ISs4DPDcgU8EcDxwu+ZlxLmdjwajnM1OuEk6CuLTvhOYvsw==
 
 "@popperjs/core@^2.3.3":
   version "2.3.3"
@@ -5831,10 +5831,10 @@ neo-async@^2.5.0, neo-async@^2.6.1:
   resolved "https://registry.yarnpkg.com/neo-async/-/neo-async-2.6.1.tgz#ac27ada66167fa8849a6addd837f6b189ad2081c"
   integrity sha512-iyam8fBuCUpWeKPGpaNMetEocMt364qkCsfL9JuhjXX6dRnguRVOfk2GZaDpPjcOKiiXCPINZC1GczQ7iTq3Zw==
 
-next-redux-wrapper@^6.0.0-rc.7:
-  version "6.0.0-rc.7"
-  resolved "https://registry.yarnpkg.com/next-redux-wrapper/-/next-redux-wrapper-6.0.0-rc.7.tgz#44e962d99d951226fb5e998b36acaa9250cb5c24"
-  integrity sha512-oK+IMbCr4fo1zjGn/ZXV0RvgN6V1XndADzXOBpJzx/1b13gJ+cnpnc3KJm+57en39Ev5BlybxXbbcTYYw/nB6A==
+next-redux-wrapper@^6.0.0-rc.8:
+  version "6.0.0-rc.8"
+  resolved "https://registry.yarnpkg.com/next-redux-wrapper/-/next-redux-wrapper-6.0.0-rc.8.tgz#8f86c9343a7585f4d0cab7febf3efbf583b124a4"
+  integrity sha512-/LQeQUemmINoJdyaKU2fPPdg6XhPZn1v4gH1yEf/TVolRfaFn0uP1aSynqqMPcqE5saYBsBniLpUhf02r3r5wA==
 
 next-tick@1:
   version "1.1.0"
@@ -5894,10 +5894,10 @@ next@*:
     webpack "4.42.1"
     webpack-sources "1.4.3"
 
-next@^9.3.6:
-  version "9.3.6"
-  resolved "https://registry.yarnpkg.com/next/-/next-9.3.6.tgz#2bfd76f835606db3840adf07b51b052514ef3709"
-  integrity sha512-b46i+qw2SYMVTOObc7GqUizt1zH1fB3T5qcOiCpl9utD7/LcWZkSxSPe7ZJtpAdFnl8V/7A58ADSvU1oxDDWug==
+next@^9.3.7-canary.0:
+  version "9.3.7-canary.0"
+  resolved "https://registry.yarnpkg.com/next/-/next-9.3.7-canary.0.tgz#c021dd5e160e7497a221262b86da6093e12d3b29"
+  integrity sha512-enfshpAHC8M9qfW/TGdA2a/qADeqSkYxLFLS7KVLXn6vl9IkXXtwtzhmuS84TQsKBgqB4V/ZyV9en8gW57m0ow==
   dependencies:
     "@ampproject/toolbox-optimizer" "2.2.0"
     "@babel/core" "7.7.2"
@@ -5915,7 +5915,7 @@ next@^9.3.6:
     "@babel/preset-react" "7.7.0"
     "@babel/preset-typescript" "7.7.2"
     "@babel/runtime" "7.7.2"
-    "@next/react-refresh-utils" "9.3.6"
+    "@next/react-refresh-utils" "9.3.7-canary.0"
     babel-plugin-syntax-jsx "6.18.0"
     babel-plugin-transform-define "2.0.0"
     babel-plugin-transform-react-remove-prop-types "0.4.24"

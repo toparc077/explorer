@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { useRouter } from 'next/router';
 import { Transaction } from '@models/transaction.interface';
 import { fetchTransaction } from '@store/transactions';
@@ -8,6 +9,7 @@ import { useTransactionState } from '@common/hooks/use-transaction-state';
 import { useMostRecentTxId } from '@common/hooks/use-most-recent-tx';
 import { useRecentlyViewedTx } from '@common/hooks/use-recently-viewed-tx';
 import { truncateMiddle } from '@common/utils';
+import { wrapper } from '@store';
 
 import { PageWrapper } from '@components/page';
 import { Meta } from '@components/meta-head';
@@ -86,7 +88,8 @@ const TransactionPage = ({ searchQuery }: { searchQuery: string }) => {
   );
 };
 
-TransactionPage.getInitialProps = async ({ store, query }: ReduxNextPageContext) => {
+// @ts-ignore
+TransactionPage.getInitialProps = async ({ query, store }: ReduxNextPageContext) => {
   const { txid } = query;
   if (txid) {
     await Promise.all([store.dispatch(fetchTransaction(txid.toString()))]);
@@ -95,4 +98,4 @@ TransactionPage.getInitialProps = async ({ store, query }: ReduxNextPageContext)
   return {};
 };
 
-export default TransactionPage;
+export default wrapper.withRedux(TransactionPage);
