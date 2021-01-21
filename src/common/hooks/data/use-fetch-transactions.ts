@@ -42,12 +42,13 @@ export function useFetchTransactions(
     {
       ...hookOptions,
       refetchInterval: DEFAULT_POLLING_INTERVAL,
+      staleTime: DEFAULT_POLLING_INTERVAL,
       keepPreviousData: true,
       notifyOnChangeProps: ['data'],
       getNextPageParam: lastPage => {
         const { limit, offset, total } = lastPage;
         const sum = offset + limit;
-        return sum <= total ? sum : false;
+        return sum < total ? sum : false;
       },
     }
   );

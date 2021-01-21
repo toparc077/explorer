@@ -46,7 +46,7 @@ export function preloadTransactionsListData(opts: {
       getNextPageParam: (lastPage: MempoolTransactionListResponse | TransactionListResponse) => {
         const { limit, offset, total } = lastPage;
         const sum = offset + limit;
-        return sum <= total ? sum : null;
+        return sum < total ? sum : null;
       },
     }
   );

@@ -115,7 +115,7 @@ export const FilterPanel = React.memo(
         right={['-10px', '-10px', 'unset', 'unset']}
         flexGrow={1}
         position="absolute"
-        top="34px"
+        top="35px"
         overflowY="hidden"
         flexDirection="column"
         px="extra-loose"
@@ -123,7 +123,6 @@ export const FilterPanel = React.memo(
         {...rest}
       >
         <Transition
-          transition={`all 280ms cubic-bezier(0.4, 0, 0.2, 1)`}
           timeout={{ enter: 50, exit: 150 }}
           styles={{
             init: {
@@ -150,6 +149,8 @@ export const FilterPanel = React.memo(
               style={styles}
               boxShadow="high"
               pointerEvents="all"
+              transition={`280ms cubic-bezier(0.4, 0, 0.2, 1)`}
+              transitionProperty="opacity, transform"
               {...borderStyles}
             >
               <Box
