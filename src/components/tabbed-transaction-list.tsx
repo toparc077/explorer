@@ -4,7 +4,7 @@ import { Section } from '@components/section';
 import { capitalize } from '@common/utils';
 import { Caption } from '@components/typography';
 import { atomFamily, useRecoilState } from 'recoil';
-import { memo, Fragment, useCallback } from 'react';
+import { memo, Fragment, useCallback, useState } from 'react';
 
 import { useHover } from 'web-api-hooks';
 import { SECTION_HEADER_HEIGHT } from '@common/constants/sizes';
@@ -148,6 +148,7 @@ export const TabbedTransactionList: React.FC<{
   confirmed: any;
   infinite?: boolean;
 }> = ({ mempool: mempoolOptions, confirmed: confirmedOptions, infinite }) => {
+  const [loading, setLoading] = useState(false);
   const { currentIndex } = useTabs(TX_TABS);
   const mempoolSelected = currentIndex === 0;
 
@@ -163,7 +164,11 @@ export const TabbedTransactionList: React.FC<{
 
   const { isFetching, isFetchingNextPage, fetchNextPage, hasNextPage } = currentList;
 
-  const handleFooterClick = useCallback(() => fetchNextPage, [mempoolSelected]);
+  const handleFooterClick = useCallback(async () => {
+    setLoading(true);
+    await fetchNextPage();
+    setLoading(false);
+  }, [mempoolSelected, fetchNextPage, setLoading]);
 
   return (
     <Section
@@ -175,16 +180,16 @@ export const TabbedTransactionList: React.FC<{
       topRight={!mempoolSelected && infinite && FilterButton}
     >
       <Flex flexGrow={1} flexDirection="column" px="base-loose">
-        <Box display={mempoolSelected ? 'unset' : 'none'}>
+        <Box display={mempoolSelected ? 'unset' : 'none'} position="relative">
           <TransactionList data={mempool?.data} key={'mempool'} />
         </Box>
-        <Box display={!mempoolSelected ? 'unset' : 'none'}>
+        <Box display={!mempoolSelected ? 'unset' : 'none'} position="relative">
           <TransactionList data={confirmed?.data} key={'confirmed'} />
         </Box>
         <Box flexGrow={1} />
         <SectionFooterAction
           path="transactions"
-          isLoading={isFetchingNextPage}
+          isLoading={isFetchingNextPage || loading}
           onClick={handleFooterClick}
           hasNextPage={hasNextPage}
           showLoadMoreButton={infinite}

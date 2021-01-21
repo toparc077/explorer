@@ -1,10 +1,11 @@
 import React from 'react';
 import NextLink from 'next/link';
 
-import { Grid, color } from '@stacks/ui';
+import { Grid, Flex, Box, color } from '@stacks/ui';
 import { Caption } from '@components/typography';
 
 import { border } from '@common/utils';
+import { Pending } from '@components/status';
 
 interface SectionFooterButtonPropsBase {
   isLoading?: boolean;
@@ -33,7 +34,16 @@ export const SectionFooterAction: React.FC<SectionFooterButtonPropsBase> = ({
         onClick={onClick}
         color={color('text-caption')}
       >
-        <Caption color="currentColor">{isLoading ? 'Loading...' : `Load more ${path}`}</Caption>
+        <Caption color="currentColor">
+          {isLoading ? (
+            <Flex alignItems="center">
+              <Box size="16px" as={Pending} mr="extra-tight" />
+              Loading...
+            </Flex>
+          ) : (
+            `Load more ${path}`
+          )}
+        </Caption>
       </Grid>
     ) : null
   ) : (
