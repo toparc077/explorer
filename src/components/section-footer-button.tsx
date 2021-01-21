@@ -6,38 +6,46 @@ import { Caption } from '@components/typography';
 
 import { border } from '@common/utils';
 
-export const SectionFooterAction: React.FC<{
+interface SectionFooterButtonPropsBase {
   isLoadingMore?: boolean;
+  hasMore?: boolean;
   onClick?: () => void;
-  path: 'blocks' | 'transactions';
-}> = React.memo(({ onClick, isLoadingMore = false, path }) =>
-  onClick ? (
-    <Grid
-      as="a"
-      borderTop={border()}
-      px="base"
-      py="base"
-      placeItems="center"
-      _hover={{ color: color('text-title') }}
-      onClick={onClick}
-      color={color('text-caption')}
-    >
-      <Caption color="currentColor">{isLoadingMore ? 'Loading...' : 'Load more'}</Caption>
-    </Grid>
-  ) : (
-    <NextLink href={`/${path}`} passHref>
-      <Grid
-        as="a"
-        borderTop={border()}
-        px="base"
-        py="base"
-        placeItems="center"
-        _hover={{ color: color('text-title') }}
-        onClick={onClick}
-        color={color('text-caption')}
-      >
-        <Caption color="currentColor">View all {path}</Caption>
-      </Grid>
-    </NextLink>
-  )
+  path?: 'blocks' | 'transactions';
+}
+
+export const SectionFooterAction: React.FC<SectionFooterButtonPropsBase> = React.memo(
+  ({ onClick, isLoadingMore = false, path, hasMore }) =>
+    onClick ? (
+      hasMore ? (
+        <Grid
+          as="a"
+          borderTop={border()}
+          px="base"
+          py="base"
+          placeItems="center"
+          _hover={{ color: color('text-title'), cursor: 'pointer' }}
+          onClick={onClick}
+          color={color('text-caption')}
+        >
+          <Caption color="currentColor">
+            {isLoadingMore ? 'Loading...' : `Load more ${path}`}
+          </Caption>
+        </Grid>
+      ) : null
+    ) : (
+      <NextLink href={`/${path}`} passHref>
+        <Grid
+          as="a"
+          borderTop={border()}
+          px="base"
+          py="base"
+          placeItems="center"
+          _hover={{ color: color('text-title') }}
+          onClick={onClick}
+          color={color('text-caption')}
+        >
+          <Caption color="currentColor">View all {path}</Caption>
+        </Grid>
+      </NextLink>
+    )
 );
