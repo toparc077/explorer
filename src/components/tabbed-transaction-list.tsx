@@ -4,7 +4,7 @@ import { Section } from '@components/section';
 import { capitalize } from '@common/utils';
 import { Caption } from '@components/typography';
 import { atomFamily, useRecoilState } from 'recoil';
-import { memo, Fragment, useMemo } from 'react';
+import { memo, Fragment, useCallback } from 'react';
 
 import { useHover } from 'web-api-hooks';
 import { SECTION_HEADER_HEIGHT } from '@common/constants/sizes';
@@ -13,6 +13,8 @@ import { MempoolTransaction, Transaction } from '@blockstack/stacks-blockchain-a
 
 import { TransactionListItem } from '@components/transaction-list-item';
 import { FilterButton } from '@components/filter-button';
+import { InfiniteQueryObserverBaseResult } from 'react-query';
+import { useFetchTransactions } from '@common/hooks/data/use-fetch-transactions';
 
 const TX_TABS = 'tabs/tx-list';
 
@@ -145,24 +147,23 @@ export const TabbedTransactionList: React.FC<{
   mempool: any;
   confirmed: any;
   infinite?: boolean;
-}> = ({ mempool, confirmed, infinite }) => {
+}> = ({ mempool: mempoolOptions, confirmed: confirmedOptions, infinite }) => {
   const { currentIndex } = useTabs(TX_TABS);
   const mempoolSelected = currentIndex === 0;
-  const onClick = mempoolSelected ? mempool?.fetchNextPage : confirmed?.fetchNextPage;
-  const hasMore = mempoolSelected ? mempool?.hasNextPage : confirmed?.hasNextPage;
-  const isLoadingMore = mempoolSelected
-    ? mempool?.isFetchingNextPage
-    : confirmed?.isFetchingNextPage;
 
-  const { isFetching } = mempoolSelected ? mempool : confirmed;
+  const confirmed = useFetchTransactions({
+    ...confirmedOptions,
+  });
+  const mempool = useFetchTransactions({
+    ...mempoolOptions,
+    mempool: true,
+  });
 
-  const footerProps = infinite
-    ? {
-        onClick,
-        hasMore,
-        isLoadingMore,
-      }
-    : {};
+  const currentList: InfiniteQueryObserverBaseResult = mempoolSelected ? mempool : confirmed;
+
+  const { isFetching, isFetchingNextPage, fetchNextPage, hasNextPage } = currentList;
+
+  const handleFooterClick = useCallback(() => fetchNextPage, [mempoolSelected]);
 
   return (
     <Section
@@ -181,7 +182,13 @@ export const TabbedTransactionList: React.FC<{
           <TransactionList data={confirmed?.data} key={'confirmed'} />
         </Box>
         <Box flexGrow={1} />
-        <SectionFooterAction path="transactions" {...(footerProps as any)} />
+        <SectionFooterAction
+          path="transactions"
+          isLoading={isFetchingNextPage}
+          onClick={handleFooterClick}
+          hasNextPage={hasNextPage}
+          showLoadMoreButton={infinite}
+        />
       </Flex>
     </Section>
   );

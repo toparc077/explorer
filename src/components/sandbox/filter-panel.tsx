@@ -103,7 +103,6 @@ export const FilterPanel = React.memo(
     const borderStyles = showBorder
       ? {
           border: border(),
-          borderTop: '0',
         }
       : {};
 
@@ -123,24 +122,12 @@ export const FilterPanel = React.memo(
         pointerEvents="none"
         {...rest}
       >
-        <Box
-          position="absolute"
-          top={0}
-          width="100%"
-          maxWidth="calc(100vw - 50px)"
-          left={['unset', 'unset', 'unset', 'unset']}
-          right={['20px', '20px', 'tight', 'tight']}
-          bg={color('border')}
-          height="1px"
-          zIndex={999999}
-        />
         <Transition
           transition={`all 280ms cubic-bezier(0.4, 0, 0.2, 1)`}
           timeout={{ enter: 50, exit: 150 }}
           styles={{
             init: {
               transform: 'translateY(-100%)',
-              // opacity: 0,
             },
             entered: { transform: 'translateY(0)', opacity: 1 },
             exiting: {
@@ -156,7 +143,7 @@ export const FilterPanel = React.memo(
               p="base"
               pb="loose"
               top="1px"
-              bg={bg || color('bg-light')}
+              bg={bg}
               width="100%"
               borderRadius="0 0 16px 16px"
               willChange="transform, opacity"
@@ -170,7 +157,7 @@ export const FilterPanel = React.memo(
                 top={'-48px'}
                 left="0"
                 width="100%"
-                bg={color('bg-light')}
+                bg={color('bg')}
                 height="50px"
               />
               <Flex pb="base" alignItems="center" justifyContent="space-between">

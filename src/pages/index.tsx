@@ -7,26 +7,9 @@ import { Meta } from '@components/meta-head';
 import { SearchComponent } from '@components/search/search';
 import { TabbedTransactionList } from '@components/tabbed-transaction-list';
 import { getSsrHomeProps } from '@common/lib/pages/home';
-import { useFetchTransactions } from '@common/hooks/data/use-fetch-transactions';
 import { HOMEPAGE_TX_LIST_CONFIRMED, HOMEPAGE_TX_LIST_MEMPOOL } from '@common/constants/data';
 
 const ITEM_LIMIT = 10;
-
-const useHomepageTransactionsData = () => {
-  const confirmed = useFetchTransactions({
-    key: HOMEPAGE_TX_LIST_CONFIRMED,
-    limit: ITEM_LIMIT,
-  });
-  const mempool = useFetchTransactions({
-    key: HOMEPAGE_TX_LIST_MEMPOOL,
-    limit: ITEM_LIMIT,
-    mempool: true,
-  });
-  return {
-    confirmed,
-    mempool,
-  };
-};
 
 const PageTop: React.FC = React.memo(() => (
   <Flex
@@ -55,8 +38,18 @@ const PageTop: React.FC = React.memo(() => (
 ));
 
 const HomeTransactions: React.FC = memo(() => {
-  const { confirmed, mempool } = useHomepageTransactionsData();
-  return <TabbedTransactionList confirmed={confirmed} mempool={mempool} />;
+  return (
+    <TabbedTransactionList
+      confirmed={{
+        key: HOMEPAGE_TX_LIST_CONFIRMED,
+        limit: ITEM_LIMIT,
+      }}
+      mempool={{
+        key: HOMEPAGE_TX_LIST_MEMPOOL,
+        limit: ITEM_LIMIT,
+      }}
+    />
+  );
 });
 
 const Home: NextPage<any> = memo(({ blocks }) => {

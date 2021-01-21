@@ -1,4 +1,4 @@
-import { Flex, FlexProps, color, Spinner } from '@stacks/ui';
+import { Flex, Box, FlexProps, color, Spinner } from '@stacks/ui';
 import { Text } from '@components/typography';
 
 import { Card } from '@components/card';
@@ -54,7 +54,13 @@ export const Section: React.FC<
           <SectionHeader title={title} {...headerProps}>
             <Flex justifyContent="flex-end" alignItems="center">
               {isLoading ? <Spinner size="sm" color={color('text-caption')} opacity={0.5} /> : null}
-              {isReactComponent(TopRight) ? <TopRight /> : TopRight}
+              {isReactComponent(TopRight) ? (
+                <Box ml="base">
+                  <TopRight />
+                </Box>
+              ) : (
+                TopRight
+              )}
             </Flex>
           </SectionHeader>
         ) : null}

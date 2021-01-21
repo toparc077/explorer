@@ -14,27 +14,9 @@ import { useFilterState } from '@common/hooks/use-filter-state';
 
 const ITEM_LIMIT = 50;
 
-const useTransactionsPageData = () => {
-  const { types } = useFilterState('txList');
-  const confirmed = useFetchTransactions({
-    key: TRANSACTIONS_PAGE_TX_LIST_CONFIRMED,
-    limit: ITEM_LIMIT,
-    txTypes: types,
-  });
-  const mempool = useFetchTransactions({
-    key: TRANSACTIONS_PAGE_TX_LIST_MEMPOOL,
-    limit: ITEM_LIMIT,
-    txTypes: types,
-    mempool: true,
-  });
-  return {
-    confirmed,
-    mempool,
-  };
-};
-
 const TransactionsPage: NextPage<any> = () => {
-  const { confirmed, mempool } = useTransactionsPageData();
+  const { types } = useFilterState('txList');
+
   return (
     <>
       <Meta title="Recent transactions" />
@@ -42,7 +24,19 @@ const TransactionsPage: NextPage<any> = () => {
         <Title mt="72px" color="white" as="h1" fontSize="36px">
           Transactions
         </Title>
-        <TabbedTransactionList infinite confirmed={confirmed} mempool={mempool} />
+        <TabbedTransactionList
+          infinite
+          confirmed={{
+            key: TRANSACTIONS_PAGE_TX_LIST_CONFIRMED,
+            limit: ITEM_LIMIT,
+            txTypes: types,
+          }}
+          mempool={{
+            key: TRANSACTIONS_PAGE_TX_LIST_MEMPOOL,
+            limit: ITEM_LIMIT,
+            txTypes: types,
+          }}
+        />
       </Box>
     </>
   );
