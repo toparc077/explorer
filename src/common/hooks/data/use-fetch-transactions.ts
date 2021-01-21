@@ -37,7 +37,7 @@ export function useFetchTransactions(
   );
 
   return useInfiniteQuery<MempoolTransactionListResponse | TransactionResults>(
-    [key, txTypes],
+    [key, options],
     fetcher,
     {
       ...hookOptions,

@@ -4,7 +4,7 @@ import { Section } from '@components/section';
 import { capitalize } from '@common/utils';
 import { Caption } from '@components/typography';
 import { atomFamily, useRecoilState } from 'recoil';
-import { memo, Fragment, useCallback, useState } from 'react';
+import { memo, useCallback, useState, useMemo } from 'react';
 
 import { useHover } from 'web-api-hooks';
 import { SECTION_HEADER_HEIGHT } from '@common/constants/sizes';
@@ -121,24 +121,23 @@ interface TransactionListProps {
   };
 }
 
+function getUniqueListBy<T>(arr: T[], key: keyof T): T[] {
+  return ([...new Map(arr.map(item => [item[key], item])).values()] as unknown) as T[];
+}
+
 const TransactionList = memo<TransactionListProps>(props => {
   const { data } = props;
+  const results = data.pages.reduce<Item[]>(
+    (accumulator, value) => accumulator.concat(value.results),
+    []
+  );
+
+  const list = useMemo(() => getUniqueListBy<Item>(results, 'tx_id'), [results]);
   return (
     <>
-      {data.pages.map(({ results }, index: number) => {
-        const isLastPage = data.pages.length === index + 1;
-        return (
-          <Fragment key={index}>
-            {results?.map((item: Item, itemIndex: number) => (
-              <TransactionListItem
-                tx={item}
-                key={item.tx_id}
-                isLast={isLastPage && itemIndex + 1 === results.length}
-              />
-            ))}
-          </Fragment>
-        );
-      })}
+      {list?.map((item: Item, itemIndex: number) => (
+        <TransactionListItem tx={item} key={item.tx_id} isLast={itemIndex + 1 === list.length} />
+      ))}
     </>
   );
 });

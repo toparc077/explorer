@@ -34,7 +34,7 @@ export function preloadTransactionsListData(opts: {
       page: pageParam,
     });
   return queryClient.prefetchInfiniteQuery(
-    [options.key, options.txTypes],
+    [options.key, options],
     async () =>
       fetchTransactionsList(apiServer)(
         makeKey({
